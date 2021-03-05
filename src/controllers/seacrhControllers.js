@@ -30,4 +30,27 @@ module.exports = {
         });
       });
   },
+  getByCategory: (req, res) => {
+    const { keyword } = req.body;
+    prisma.books
+      .findMany({
+        where: {
+          id_category: parseInt(keyword),
+        },
+      })
+      .then((data) => {
+        res.send({
+          message: "Success",
+          status: 200,
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.send({
+          message: "Failed",
+          status: 500,
+          data: data,
+        });
+      });
+  },
 };

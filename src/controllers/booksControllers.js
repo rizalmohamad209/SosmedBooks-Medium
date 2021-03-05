@@ -11,12 +11,11 @@ module.exports = {
               name_category: true,
             },
           },
-          discussion: {
+          user: {
             select: {
-              diskusi: true,
+              name_user: true,
             },
           },
-          user: true,
         },
       })
       .then((data) => {

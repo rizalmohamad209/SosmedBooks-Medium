@@ -77,10 +77,13 @@ module.exports = {
             const token = jwt.sign(payload, "RIZAL123", {
               expiresIn: 86400,
             });
+
+            delete data.password;
             const newData = {
               ...data,
               token: token,
             };
+
             res.send({
               message: "Success Login",
               status: 200,

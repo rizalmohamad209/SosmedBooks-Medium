@@ -1,6 +1,7 @@
-const authSearch = require("express").Router();
+const searchRoutes = require("express").Router();
 const searchControllers = require("../controllers/seacrhControllers");
 
-authSearch.get("/", searchControllers.getSearchBoook);
+searchRoutes.get("/", searchControllers.getSearchBoook);
+searchRoutes.get("/category", searchControllers.getByCategory);
 
-module.exports = authSearch;
+module.exports = searchRoutes;
