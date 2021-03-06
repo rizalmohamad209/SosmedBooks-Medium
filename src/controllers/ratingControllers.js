@@ -63,4 +63,37 @@ module.exports = {
         });
       });
   },
+  getRatingById: (req, res) => {
+    const { id } = req.params;
+    prisma.rating
+      .groupBy({
+        by: ["id_books"],
+        where:{
+          id_books: parseInt(id)
+        },
+        count: {
+          id_books: true,
+        },
+        sum: {
+          rating: true,
+        },
+        avg: {
+          rating: true,
+        },
+      })
+      .then((data) => {
+        res.send({
+          message: "Success Get Rating By id",
+          status: 200,
+          data: data,
+        });
+      })
+      .catch((error)=>{
+        res.send({
+          message:"Error While Get Rating By id",
+          status:500,
+          error:error
+        })
+      })
+  },
 };
