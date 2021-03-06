@@ -6,16 +6,15 @@ const userRoutes = require("./userRoutes");
 const searchRoutes = require("./searchRoutes");
 const ratingRoutes = require("./ratingRoutes");
 const discussionRoutes = require("./discussionRoutes");
+const borrowRoutes = require("./borrowRoutes");
 
 mainRoutes.use("/category", categoryRoutes);
-
 mainRoutes.use("/books", booksRoutes);
-
 mainRoutes.use("/auth", authRoutes);
-
 mainRoutes.use("/user", userRoutes);
 mainRoutes.use("/search", searchRoutes);
 mainRoutes.use("/rating", ratingRoutes);
 mainRoutes.use("/discussion", discussionRoutes);
+mainRoutes.use("/borrow", borrowRoutes);
 
 module.exports = mainRoutes;

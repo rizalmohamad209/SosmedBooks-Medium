@@ -36,4 +36,31 @@ module.exports = {
         });
       });
   },
+  createRating: (req, res) => {
+    const { body } = req;
+    const newBody = {
+      ...body,
+      rating: parseFloat(body.rating),
+      id_books: parseInt(body.id_books),
+    };
+
+    prisma.rating
+      .create({
+        data: newBody,
+      })
+      .then((data) => {
+        res.send({
+          message: "Success Input Rating",
+          status: 200,
+          data: data,
+        });
+      })
+      .catch((error) => {
+        res.send({
+          message: "Failed While Input Rating",
+          status: 400,
+          error: error,
+        });
+      });
+  },
 };
