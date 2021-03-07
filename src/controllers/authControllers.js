@@ -42,9 +42,9 @@ module.exports = {
       email: req.body.email,
       password: req.body.password,
     };
-    console.log("====================================");
-    console.log(body.password);
-    console.log("====================================");
+    // console.log("====================================");
+    // console.log(body.password);
+    // console.log("====================================");
     prisma.user
       .findFirst({
         where: {
@@ -58,9 +58,9 @@ module.exports = {
             status: 404,
           });
         } else {
-          console.log("====================================");
-          console.log("ini passwordnya", data.password);
-          console.log("====================================");
+          // console.log("====================================");
+          // console.log("ini passwordnya", data.password);
+          // console.log("====================================");
           const isValid = bcrypt.compareSync(body.password, data.password);
           if (!isValid) {
             res.send({
@@ -72,7 +72,11 @@ module.exports = {
             const payload = {
               username: data.username,
               email: data.email,
+              id_user: data.id_user,
             };
+            // console.log("====================================");
+            // console.log(payload);
+            // console.log("====================================");
 
             const token = jwt.sign(payload, "RIZAL123", {
               expiresIn: 86400,

@@ -1,10 +1,21 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+const jwt = require("jsonwebtoken");
+
 module.exports = {
   getBooks: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const deCoded = jwt.verify(token, "RIZAL123");
+    let deCoded_id_user = deCoded.id_user;
+    // console.log("====================================");
+    // console.log(decodedID);
+    // console.log("====================================");
     prisma.books
       .findMany({
+        where: {
+          id_user: deCoded_id_user,
+        },
         include: {
           category: {
             select: {
@@ -71,8 +82,6 @@ module.exports = {
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
       id_user: parseInt(body.id_user),
-      id_discussion: parseInt(body.id_discussion),
-      id_rate: parseInt(body.id_rate),
     };
     prisma.books
       .create({
@@ -90,12 +99,16 @@ module.exports = {
       });
   },
   deleteBooks: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const deCoded = jwt.verify(token, "RIZAL123");
+    let deCoded_id_user = deCoded.id_user;
     const { id } = req.params;
     console.log("ini id", id);
     prisma.books
-      .delete({
+      .deleteMany({
         where: {
           id_books: parseInt(id),
+          id_user: deCoded_id_user,
         },
       })
       .then((data) => {
@@ -110,6 +123,9 @@ module.exports = {
       });
   },
   editBook: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const deCoded = jwt.verify(token, "RIZAL123");
+    let deCoded_id_user = deCoded.id_user;
     const { id } = req.params;
     const { body } = req;
 
@@ -119,13 +135,13 @@ module.exports = {
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
       id_user: parseInt(body.id_user),
-      id_discussion: parseInt(body.id_discussion),
-      id_rate: parseInt(body.id_rate),
     };
+
     prisma.books
-      .update({
+      .updateMany({
         where: {
           id_books: parseInt(id),
+          id_user: deCoded_id_user,
         },
         data: newBody,
       })
@@ -141,6 +157,24 @@ module.exports = {
           message: "Error While Update book",
           status: 500,
           error: error,
+        });
+      });
+  },
+  getBooksAll: (req, res) => {
+    prisma.books
+      .findMany({})
+      .then((data) => {
+        res.status(200).send({
+          message: "Seuccess Get All Books",
+          status: 200,
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Error While Get All Books",
+          status: 500,
+          error,
         });
       });
   },

@@ -1,10 +1,21 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   getProfile: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const deCoded = jwt.verify(token, "RIZAL123");
+    let deCodedId_User = deCoded.id_user;
+    // console.log("====================================");
+    // console.log(decodedID);
+    // console.log("====================================");
     prisma.user
-      .findMany({})
+      .findMany({
+        where: {
+          id_user: deCodedId_User,
+        },
+      })
       .then((data) => {
         res.send({
           message: "Succes Get Data Profile",
@@ -27,7 +38,6 @@ module.exports = {
     const newBody = {
       ...body,
       NIK: parseInt(body.NIK),
-      no_hp: parseInt(body.no_hp),
       birth_date: new Date(body.birth_date),
     };
     prisma.user

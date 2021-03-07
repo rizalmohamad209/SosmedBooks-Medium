@@ -1,5 +1,5 @@
 const mainRoutes = require("express").Router();
-const booksRoutes = require("./booksRoutes");
+const bookRoutes = require("./booksRoutes");
 const categoryRoutes = require("./categoryRoutes");
 const authRoutes = require("./authRoutes");
 const userRoutes = require("./userRoutes");
@@ -9,7 +9,7 @@ const discussionRoutes = require("./discussionRoutes");
 const borrowRoutes = require("./borrowRoutes");
 
 mainRoutes.use("/category", categoryRoutes);
-mainRoutes.use("/books", booksRoutes);
+mainRoutes.use("/books", bookRoutes);
 mainRoutes.use("/auth", authRoutes);
 mainRoutes.use("/user", userRoutes);
 mainRoutes.use("/search", searchRoutes);

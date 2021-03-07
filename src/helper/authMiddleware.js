@@ -9,9 +9,15 @@ module.exports = {
       });
     } else {
       const token = req.header("x-access-token").split(" ")[1];
+      console.log("====================================");
+      console.log(token);
+      console.log("====================================");
       try {
         const decodeToken = jwt.verify(token, "RIZAL123");
         req.decodeToken = decodeToken;
+        console.log("====================================");
+        console.log(decodeToken);
+        console.log("====================================");
         next();
       } catch (error) {
         res.send({ message: "Invalid token", status: 403 });

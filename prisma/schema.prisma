@@ -4,7 +4,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgres"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -19,7 +19,6 @@ model books {
   cover__book String?      @map("cover_ book")
   id_category Int?
   id_user     Int?
-  id_rate     Int?
   category    category?    @relation(fields: [id_category], references: [id_category])
   user        user?        @relation(fields: [id_user], references: [id_user])
   borrow      borrow[]
