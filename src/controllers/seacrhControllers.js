@@ -12,6 +12,7 @@ module.exports = {
         where: {
           title: {
             contains: keyword,
+            mode: "insensitive",
           },
         },
       })
