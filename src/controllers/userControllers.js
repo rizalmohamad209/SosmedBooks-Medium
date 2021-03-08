@@ -3,17 +3,35 @@ const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
 
 module.exports = {
+  getAllUsers: (req, res) => {
+    prisma.user
+      .findMany({})
+      .then((data) => {
+        res.status(200).send({
+          message: "Succes Get Al Users",
+          status: 200,
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Error While Get All Users",
+          status: 500,
+          error,
+        });
+      });
+  },
   getProfile: (req, res) => {
     const token = req.header("x-access-token").split(" ")[1];
-    const deCoded = jwt.verify(token, "RIZAL123");
-    let deCodedId_User = deCoded.id_user;
-    // console.log("====================================");
-    // console.log(decodedID);
-    // console.log("====================================");
+    const deCodeId = jwt.verify(token, "RIZAL123");
+    const deCode_id_user = deCodeId.id_user;
+    console.log("====================================");
+    console.log(deCode_id_user);
+    console.log("====================================");
     prisma.user
       .findMany({
         where: {
-          id_user: deCodedId_User,
+          id_user: deCode_id_user,
         },
       })
       .then((data) => {
@@ -31,9 +49,15 @@ module.exports = {
         });
       });
   },
-  addUser: (req, res) => {
-    const { id } = req.params;
+  editUser: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const deCodeId = jwt.verify(token, "RIZAL123");
+    const deCode_id_user = deCodeId.id_user;
     const { body } = req;
+
+    console.log("====================================");
+    console.log(deCode_id_user);
+    console.log("====================================");
 
     const newBody = {
       ...body,
@@ -43,20 +67,19 @@ module.exports = {
     prisma.user
       .update({
         where: {
-          id_user: parseInt(id),
+          id_user: deCode_id_user,
         },
         data: newBody,
       })
       .then((data) => {
-        res.send({
-          message: "Succes add User",
+        res.status(200).send({
+          message: "Succes edit User",
           status: 200,
-          data: data,
         });
       })
       .catch((error) => {
         res.send({
-          message: "Failed add user",
+          message: "Failed Edit user",
           status: 500,
           error: error,
         });

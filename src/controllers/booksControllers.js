@@ -103,23 +103,36 @@ module.exports = {
     const deCoded = jwt.verify(token, "RIZAL123");
     let deCoded_id_user = deCoded.id_user;
     const { id } = req.params;
-    console.log("ini id", id);
+    console.log("====================================");
+    // console.log(data.id_books);
+    console.log("====================================");
+
     prisma.books
       .deleteMany({
         where: {
-          id_books: parseInt(id),
           id_user: deCoded_id_user,
+          id_books: parseInt(id),
         },
       })
       .then((data) => {
-        res.send({
-          message: "Success delete book",
-          status: 200,
-          data: data,
-        });
+        if (data.count > 0) {
+          res.status(200).send({
+            message: "Success delete book",
+            status: 200,
+          });
+        } else {
+          res.status(401).send({
+            message: "Error Forbidden",
+            status: 401,
+          });
+        }
       })
       .catch((error) => {
-        res.send({ message: "Error deleting book", status: 500, error: error });
+        res.send({
+          message: "Error deleting book",
+          status: 500,
+          error: error,
+        });
       });
   },
   editBook: (req, res) => {

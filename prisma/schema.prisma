@@ -71,7 +71,7 @@ model user {
 
 model rating {
   id_rating Int    @id @default(autoincrement())
-  rating    Float?
   id_books  Int?
+  rating    Float?
   books     books? @relation(fields: [id_books], references: [id_books])
 }

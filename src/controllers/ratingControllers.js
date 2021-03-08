@@ -68,8 +68,8 @@ module.exports = {
     prisma.rating
       .groupBy({
         by: ["id_books"],
-        where:{
-          id_books: parseInt(id)
+        where: {
+          id_books: parseInt(id),
         },
         count: {
           id_books: true,
@@ -88,12 +88,12 @@ module.exports = {
           data: data,
         });
       })
-      .catch((error)=>{
+      .catch((error) => {
         res.send({
-          message:"Error While Get Rating By id",
-          status:500,
-          error:error
-        })
-      })
+          message: "Error While Get Rating By id",
+          status: 500,
+          error: error,
+        });
+      });
   },
 };
