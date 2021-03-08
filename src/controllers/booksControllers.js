@@ -75,13 +75,17 @@ module.exports = {
       });
   },
   createBook: (req, res) => {
+    const token = req.header("x-access-token").split(" ")[1];
+    const decodedID = jwt.verify(token, "RIZAL123");
+    const deCoded_id_user = decodedID.id_user;
+
     const { body } = req;
     const newBody = {
       ...body,
       ISBN: parseInt(body.ISBN),
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
-      id_user: parseInt(body.id_user),
+      id_user: deCoded_id_user,
     };
     prisma.books
       .create({
