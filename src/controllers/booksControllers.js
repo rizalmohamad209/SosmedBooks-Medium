@@ -80,13 +80,23 @@ module.exports = {
     const deCoded_id_user = decodedID.id_user;
 
     const { body } = req;
+
     const newBody = {
       ...body,
+      // ISBN: parseInt(Text.ISBN),
+      // pages: parseInt(Text.pages),
+      // id_category: parseInt(Text.id_category),
+      // id_user: deCoded_id_user,
+      // cover__book: req.file.path,
       ISBN: parseInt(body.ISBN),
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
+      cover__book: req.file.path,
       id_user: deCoded_id_user,
     };
+    console.log("====================================");
+    console.log("ini new body", newBody);
+    console.log("====================================");
     prisma.books
       .create({
         data: newBody,

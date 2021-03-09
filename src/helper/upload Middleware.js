@@ -6,14 +6,14 @@ const storage = multer.diskStorage({
     callback(null, "./public/books_image");
   },
 
-  fileName: (req, file, callback) => {
+  filename: (req, file, callback) => {
     console.log("====================================");
     console.log(file);
     console.log("====================================");
-    const nameFormat = `${Date.now()}-${file.fileName}${path.extname(
+    const NameFormat = `${Date.now()}-${file.fieldname}${path.extname(
       file.originalname
     )}`;
-    callback(null, nameFormat);
+    callback(null, NameFormat);
   },
 });
 
@@ -23,7 +23,7 @@ const upload = multer({
 });
 
 const singleUpload = (req, res, next) => {
-  const uploadBooks = upload.single("cover_book");
+  const uploadBooks = upload.single("cover__book");
   uploadBooks(req, res, (err) => {
     if (err) {
       res.status(500).send({
