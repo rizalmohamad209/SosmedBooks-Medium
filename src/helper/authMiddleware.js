@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const form = require('./form');
+
 module.exports = {
   checkLogin: (req, res, next) => {
     const bearerToken = req.header("x-access-token");
@@ -7,10 +9,7 @@ module.exports = {
     console.log("====================================");
     if (bearerToken === undefined) {
       console.log("ERROR");
-      res.status(401).send({
-        message: "Please Login First",
-        status: 401,
-      });
+      form.error(res, "Please login first", 401, "You need login to access it");
     } else {
       console.log("SUCCESS");
       const token = req.header("x-access-token").split(" ")[1];
