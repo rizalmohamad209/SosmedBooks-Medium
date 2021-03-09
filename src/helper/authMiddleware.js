@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 module.exports = {
   checkLogin: (req, res, next) => {
-    const bearerToken = req.header("x-access-token");
+    const bearerToken = req.header("x-access-token").split(" ")[1];
     if (!bearerToken) {
       res.status(401).send({
         message: "Please Login First",

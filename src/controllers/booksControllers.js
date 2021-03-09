@@ -76,6 +76,9 @@ module.exports = {
   },
   createBook: (req, res) => {
     const token = req.header("x-access-token").split(" ")[1];
+    console.log("====================================");
+    console.log("Ini Bearer", token);
+    console.log("====================================");
     const decodedID = jwt.verify(token, "RIZAL123");
     const deCoded_id_user = decodedID.id_user;
     const { body } = req;
