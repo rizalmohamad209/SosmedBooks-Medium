@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const form = require('./form');
+const form = require("./form");
 
 module.exports = {
   checkLogin: (req, res, next) => {
@@ -8,8 +8,16 @@ module.exports = {
     console.log("ini bearer", bearerToken);
     console.log("====================================");
     if (bearerToken === undefined) {
+      console.log("====================================");
+      console.log("RES ", res);
+      console.log("====================================");
       console.log("ERROR");
-      form.error(res, "Please login first", 401, "You need login to access it");
+      return form.error(
+        res,
+        "Please login first",
+        401,
+        "You need login to access it"
+      );
     } else {
       console.log("SUCCESS");
       const token = req.header("x-access-token").split(" ")[1];
