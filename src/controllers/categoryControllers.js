@@ -43,4 +43,46 @@ module.exports = {
         });
       });
   },
+  createCategory: (req, res) => {
+    const { body } = req;
+    prisma.category
+      .create({
+        data: body,
+      })
+      .then((data) => {
+        res.status(200).send({
+          message: "Success Add Category",
+          status: 200,
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Error While Add Category",
+          status: 500,
+          error,
+        });
+      });
+  },
+  deleteCategory: (req, res) => {
+    const { id } = req.params;
+    prisma.category
+      .delete({
+        where: parseInt(id),
+      })
+      .then((data) => {
+        res.status(200).send({
+          message: "Success Delete Category",
+          status: 200,
+          data,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Error While Delete Books",
+          status: 500,
+          error,
+        });
+      });
+  },
 };
