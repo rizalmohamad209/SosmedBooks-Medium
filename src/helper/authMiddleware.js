@@ -5,7 +5,7 @@ module.exports = {
     console.log("====================================");
     console.log("ini bearer", bearerToken);
     console.log("====================================");
-    if (!bearerToken) {
+    if (bearerToken === undefined) {
       res.status(401).send({
         message: "Please Login First",
         status: 401,
