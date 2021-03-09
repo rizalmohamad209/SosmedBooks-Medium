@@ -20,7 +20,10 @@ module.exports = {
         console.log("====================================");
         next();
       } catch (error) {
-        res.send({ message: "Invalid token", status: 403 });
+        res.send({
+          message: "Invalid token",
+          status: 401,
+        });
       }
     }
   },
