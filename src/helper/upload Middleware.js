@@ -28,7 +28,7 @@ const singleUpload = (req, res, next) => {
     if (err) {
       res.status(500).send({
         message: "Error Multer",
-        status: 400,
+        status: 500,
         err,
       });
     } else {
