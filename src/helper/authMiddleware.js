@@ -3,7 +3,7 @@ module.exports = {
   checkLogin: (req, res, next) => {
     const bearerToken = req.header("x-access-token");
     if (!bearerToken) {
-      res.send({
+      res.status(401).send({
         message: "Please Login First",
         status: 401,
       });
