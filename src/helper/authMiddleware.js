@@ -6,21 +6,17 @@ module.exports = {
     console.log("ini bearer", bearerToken);
     console.log("====================================");
     if (bearerToken === undefined) {
+      console.log("ERROR");
       res.status(401).send({
         message: "Please Login First",
         status: 401,
       });
     } else {
+      console.log("SUCCESS");
       const token = req.header("x-access-token").split(" ")[1];
-      console.log("====================================");
-      console.log(token);
-      console.log("====================================");
       try {
         const decodeToken = jwt.verify(token, "RIZAL123");
         req.decodeToken = decodeToken;
-        console.log("====================================");
-        console.log(decodeToken);
-        console.log("====================================");
         next();
       } catch (error) {
         res.send({
