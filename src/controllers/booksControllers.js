@@ -5,12 +5,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   getBooks: (req, res) => {
-    const token = req.header("x-access-token").split(" ")[1];
-    const deCoded = jwt.verify(token, "RIZAL123");
-    let deCoded_id_user = deCoded.id_user;
-    // console.log("====================================");
-    // console.log(decodedID);
-    // console.log("====================================");
+    const deCoded_id_user = req.decodeToken.id_user;
     prisma.books
       .findMany({
         where: {
@@ -75,11 +70,6 @@ module.exports = {
       });
   },
   createBook: (req, res) => {
-    // const token = req.header("x-access-token").split(" ")[1];
-    // console.log("====================================");
-    // console.log("Ini Bearer", token);
-    // console.log("====================================");
-    // const decodedID = jwt.verify(token, "RIZAL123");
     const deCoded_id_user = req.decodeToken.id_user;
     const { body } = req;
 
@@ -115,13 +105,8 @@ module.exports = {
       });
   },
   deleteBooks: (req, res) => {
-    const token = req.header("x-access-token").split(" ")[1];
-    const deCoded = jwt.verify(token, "RIZAL123");
-    let deCoded_id_user = deCoded.id_user;
+    const deCoded_id_user = req.decodeToken.id_user;
     const { id } = req.params;
-    console.log("====================================");
-    // console.log(data.id_books);
-    console.log("====================================");
 
     prisma.books
       .deleteMany({
@@ -152,9 +137,7 @@ module.exports = {
       });
   },
   editBook: (req, res) => {
-    const token = req.header("x-access-token").split(" ")[1];
-    const deCoded = jwt.verify(token, "RIZAL123");
-    let deCoded_id_user = deCoded.id_user;
+    const deCoded_id_user = req.decodeToken.id_user;
     const { id } = req.params;
     const { body } = req;
 

@@ -22,9 +22,7 @@ module.exports = {
       });
   },
   getProfile: (req, res) => {
-    const token = req.header("x-access-token").split(" ")[1];
-    const deCodeId = jwt.verify(token, "RIZAL123");
-    const deCode_id_user = deCodeId.id_user;
+    const deCode_id_user = req.decodeToken.id_user;
     console.log("====================================");
     console.log(deCode_id_user);
     console.log("====================================");
@@ -50,9 +48,7 @@ module.exports = {
       });
   },
   editUser: (req, res) => {
-    const token = req.header("x-access-token").split(" ")[1];
-    const deCodeId = jwt.verify(token, "RIZAL123");
-    const deCode_id_user = deCodeId.id_user;
+    const deCode_id_user = req.decodeToken.id_user;
     const { body } = req;
 
     console.log("====================================");
