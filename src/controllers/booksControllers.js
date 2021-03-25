@@ -85,7 +85,6 @@ module.exports = {
       // id_category: parseInt(Text.id_category),
       // id_user: deCoded_id_user,
       // cover__book: req.file.path,
-      ISBN: parseInt(body.ISBN),
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
       cover__book: req.file.path,

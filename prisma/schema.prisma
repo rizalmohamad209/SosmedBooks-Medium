@@ -13,7 +13,7 @@ model books {
   title       String?
   publisher   String?
   author      String?
-  ISBN        BigInt?
+  ISBN        String?
   pages       Int?
   description String?
   cover__book String?      @map("cover_ book")
@@ -59,7 +59,7 @@ model user {
   username   String?
   email      String?
   password   String?
-  NIK        BigInt?
+  NIK        String?
   foto_user  String?
   address    String?
   no_hp      String?
