@@ -184,19 +184,19 @@ module.exports = {
       });
   },
   getBooksAll: (req, res) => {
-    const page = req.body.pagination;
-    console.log("====================================");
-    console.log(page);
-    console.log("====================================");
-    const booksPerPage = 5;
-    const offset = (page - 1) * booksPerPage;
+    // const page = req.body.pagination;
+    // console.log("====================================");
+    // console.log(page);
+    // console.log("====================================");
+    // const booksPerPage = 5;
+    // const offset = (page - 1) * booksPerPage;
     prisma.books
       .findMany({
-        take: booksPerPage,
-        orderBy: {
-          id_books: "asc",
-        },
-        skip: offset,
+        // take: booksPerPage,
+        // orderBy: {
+        //   id_books: "asc",
+        // },
+        // skip: offset,
       })
       .then((data) => {
         res.status(200).send({
