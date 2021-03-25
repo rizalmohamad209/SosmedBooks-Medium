@@ -26,10 +26,6 @@ booksRoutes.put(
   uploadMiddleware,
   booksControllers.editBook
 );
-booksRoutes.get(
-  "/:id",
-  authMiddleware.checkLogin,
-  booksControllers.getBookById
-);
+booksRoutes.get("/:id", booksControllers.getBookById);
 
 module.exports = booksRoutes;
