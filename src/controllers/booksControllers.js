@@ -106,6 +106,9 @@ module.exports = {
         });
       })
       .catch((error) => {
+        console.log("====================================");
+        console.log(error);
+        console.log("====================================");
         res.status(500).send({
           msg: "failed",
           status: 500,
