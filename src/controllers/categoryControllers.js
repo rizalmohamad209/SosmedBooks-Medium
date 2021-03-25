@@ -45,9 +45,13 @@ module.exports = {
   },
   createCategory: (req, res) => {
     const { body } = req;
+    const newBody = {
+      ...body,
+      cover_category: req.file.path,
+    };
     prisma.category
       .create({
-        data: body,
+        data: newBody,
       })
       .then((data) => {
         res.status(200).send({

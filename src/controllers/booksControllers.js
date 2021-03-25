@@ -1,13 +1,19 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const jwt = require("jsonwebtoken");
-
 module.exports = {
   getBooks: (req, res) => {
+    const page = req.body.pagination;
+    const booksPerPage = 5;
+    const offset = (page - 1) * booksPerPage;
     const deCoded_id_user = req.decodeToken.id_user;
     prisma.books
       .findMany({
+        take: booksPerPage,
+        orderBy: {
+          id_books: "asc",
+        },
+        limit: offset,
         where: {
           id_user: deCoded_id_user,
         },
@@ -72,7 +78,6 @@ module.exports = {
   createBook: (req, res) => {
     const deCoded_id_user = req.decodeToken.id_user;
     const { body } = req;
-
     const newBody = {
       ...body,
       // ISBN: parseInt(Text.ISBN),
@@ -87,21 +92,25 @@ module.exports = {
       id_user: deCoded_id_user,
     };
     console.log("====================================");
-    console.log("ini new body", newBody);
+    console.log(newBody);
     console.log("====================================");
     prisma.books
       .create({
         data: newBody,
       })
       .then((data) => {
-        res.send({
-          message: "Data Books Success Upload",
+        res.status(200).send({
+          msg: "Success",
           status: 200,
-          data: data,
+          data,
         });
       })
-      .catch((err) => {
-        res.send({ message: "Error While Add data", status: 500, error: err });
+      .catch((error) => {
+        res.status(500).send({
+          msg: "failed",
+          status: 500,
+          error,
+        });
       });
   },
   deleteBooks: (req, res) => {
@@ -189,15 +198,15 @@ module.exports = {
       })
       .then((data) => {
         res.status(200).send({
-          message: "Seuccess Get All Books",
-          status: 200,
+          message: "Error While Get All Books",
+          status: 500,
           data,
         });
       })
       .catch((error) => {
         res.status(500).send({
-          message: "Error While Get All Books",
-          status: 500,
+          message: "Success Get All Books",
+          status: 200,
           error,
         });
       });

@@ -3,20 +3,33 @@ const booksControllers = require("../controllers/booksControllers");
 const authMiddleware = require("../helper/authMiddleware");
 const uploadMiddleware = require("../helper/upload Middleware");
 
-booksRoutes.get("/user", authMiddleware.checkLogin, booksControllers.getBooks);
-booksRoutes.get("/:id", booksControllers.getBookById);
-booksRoutes.get("/", booksControllers.getBooksAll);
 booksRoutes.post(
-  "/post",
+  "/",
   authMiddleware.checkLogin,
   uploadMiddleware,
   booksControllers.createBook
+);
+booksRoutes.get("/", booksControllers.getBooksAll);
+booksRoutes.get(
+  "/byuser",
+  authMiddleware.checkLogin,
+  booksControllers.getBooks
 );
 booksRoutes.delete(
   "/:id",
   authMiddleware.checkLogin,
   booksControllers.deleteBooks
 );
-booksRoutes.put("/:id", authMiddleware.checkLogin, booksControllers.editBook);
+booksRoutes.put(
+  "/:id",
+  authMiddleware.checkLogin,
+  uploadMiddleware,
+  booksControllers.editBook
+);
+booksRoutes.get(
+  "/:id",
+  authMiddleware.checkLogin,
+  booksControllers.getBookById
+);
 
 module.exports = booksRoutes;

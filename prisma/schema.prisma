@@ -13,12 +13,13 @@ model books {
   title       String?
   publisher   String?
   author      String?
-  ISBN        Int?
+  ISBN        BigInt?
   pages       Int?
   description String?
   cover__book String?      @map("cover_ book")
   id_category Int?
   id_user     Int?
+  id_rate     Int?
   category    category?    @relation(fields: [id_category], references: [id_category])
   user        user?        @relation(fields: [id_user], references: [id_user])
   borrow      borrow[]
@@ -58,7 +59,7 @@ model user {
   username   String?
   email      String?
   password   String?
-  NIK        Int?
+  NIK        BigInt?
   foto_user  String?
   address    String?
   no_hp      String?
@@ -71,7 +72,7 @@ model user {
 
 model rating {
   id_rating Int    @id @default(autoincrement())
-  id_books  Int?
   rating    Float?
+  id_books  Int?
   books     books? @relation(fields: [id_books], references: [id_books])
 }

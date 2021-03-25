@@ -1,31 +1,27 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const jwt = require("jsonwebtoken");
 
 module.exports = {
   getAllUsers: (req, res) => {
     prisma.user
       .findMany({})
       .then((data) => {
-        res.status(200).send({
-          message: "Succes Get Al Users",
+        res.send({
+          msg: "Success",
           status: 200,
-          data,
+          data: data,
         });
       })
       .catch((error) => {
-        res.status(500).send({
-          message: "Error While Get All Users",
+        res.send({
+          msg: "Failed",
           status: 500,
-          error,
+          error: error,
         });
       });
   },
   getProfile: (req, res) => {
     const deCode_id_user = req.decodeToken.id_user;
-    console.log("====================================");
-    console.log(deCode_id_user);
-    console.log("====================================");
     prisma.user
       .findMany({
         where: {
@@ -57,8 +53,9 @@ module.exports = {
 
     const newBody = {
       ...body,
-      NIK: parseInt(body.NIK),
+      NIK: Number(body.NIK),
       birth_date: new Date(body.birth_date),
+      foto_user: req.file.path,
     };
     prisma.user
       .update({

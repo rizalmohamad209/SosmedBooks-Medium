@@ -3,13 +3,13 @@ const path = require("path");
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "./public/books_image");
+    callback(null, "./public");
   },
 
   filename: (req, file, callback) => {
-    // console.log("====================================");
-    // console.log(file);
-    // console.log("====================================");
+    console.log("====================================");
+    console.log(file);
+    console.log("====================================");
     const NameFormat = `${Date.now()}-${file.fieldname}${path.extname(
       file.originalname
     )}`;
@@ -23,7 +23,7 @@ const upload = multer({
 });
 
 const singleUpload = (req, res, next) => {
-  const uploadBooks = upload.single("cover__book");
+  const uploadBooks = upload.single("cover_category");
   uploadBooks(req, res, (err) => {
     if (err) {
       res.status(500).send({

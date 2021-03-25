@@ -37,11 +37,13 @@ module.exports = {
       });
   },
   createRating: (req, res) => {
+    const decodeIdUser = req.decodeToken.id_user;
     const { body } = req;
     const newBody = {
       ...body,
       rating: parseFloat(body.rating),
       id_books: parseInt(body.id_books),
+      id_user: decodeIdUser,
     };
 
     prisma.rating
