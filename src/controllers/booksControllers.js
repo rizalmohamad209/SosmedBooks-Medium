@@ -198,15 +198,15 @@ module.exports = {
       })
       .then((data) => {
         res.status(200).send({
-          message: "Error While Get All Books",
-          status: 500,
+          message: "Success get all books",
+          status: 200,
           data,
         });
       })
       .catch((error) => {
         res.status(500).send({
-          message: "Success Get All Books",
-          status: 200,
+          message: "Error while get all books",
+          status: 500,
           error,
         });
       });
