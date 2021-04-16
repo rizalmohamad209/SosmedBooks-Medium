@@ -2,9 +2,13 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = {
-  getDiscussions: (req, res) => {
+  getDiscussionsByIdBooks: (req, res) => {
+    let { id } = req.params;
     prisma.discussion
       .findMany({
+        where: {
+          id_books: parseInt(id),
+        },
         include: {
           user: {
             select: {
@@ -31,9 +35,11 @@ module.exports = {
   },
   createOnediscussion: (req, res) => {
     const { body } = req;
+    const deCoded_id_user = req.decodeToken.id_user;
     const newBody = {
       ...body,
       id_books: parseInt(body.id_books),
+      id_user: deCoded_id_user,
     };
     prisma.discussion
       .create({

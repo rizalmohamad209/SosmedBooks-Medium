@@ -7,6 +7,7 @@ const searchRoutes = require("./searchRoutes");
 const ratingRoutes = require("./ratingRoutes");
 const discussionRoutes = require("./discussionRoutes");
 const borrowRoutes = require("./borrowRoutes");
+const populerRoutes = require("./populerRoutes");
 
 mainRoutes.use("/category", categoryRoutes);
 mainRoutes.use("/books", bookRoutes);
@@ -16,5 +17,6 @@ mainRoutes.use("/search", searchRoutes);
 mainRoutes.use("/rating", ratingRoutes);
 mainRoutes.use("/discussion", discussionRoutes);
 mainRoutes.use("/borrow", borrowRoutes);
+mainRoutes.use("/populer", populerRoutes);
 
 module.exports = mainRoutes;

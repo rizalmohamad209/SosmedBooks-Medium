@@ -190,14 +190,21 @@ module.exports = {
     // console.log("====================================");
     // const booksPerPage = 5;
     // const offset = (page - 1) * booksPerPage;
-    prisma.books
-      .findMany({
-        // take: booksPerPage,
-        // orderBy: {
-        //   id_books: "asc",
-        // },
-        // skip: offset,
-      })
+    prisma
+      .$queryRaw(
+        "select * from books as B LEFT JOIN (select books_id,trunc(AVG(rating)::numeric,1) as rating from rating GROUP BY books_id) as R ON B.id_books = R.books_id ORDER BY id_books ASC;"
+      )
+      // .findMany({
+      // include: {
+      // rating: true,
+      // },
+      // take: booksPerPage,
+      // orderBy: {
+      //   id_books: "asc",
+      // },
+      // skip: offset,
+      // })
+
       .then((data) => {
         res.status(200).send({
           message: "Success get all books",

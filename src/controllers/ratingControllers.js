@@ -5,13 +5,7 @@ module.exports = {
   getrating: (req, res) => {
     prisma.rating
       .groupBy({
-        by: ["id_books"],
-        count: {
-          id_books: true,
-        },
-        sum: {
-          rating: true,
-        },
+        by: ["books_id"],
         avg: {
           rating: true,
         },
@@ -42,8 +36,8 @@ module.exports = {
     const newBody = {
       ...body,
       rating: parseFloat(body.rating),
-      id_books: parseInt(body.id_books),
-      id_user: decodeIdUser,
+      books_id: parseInt(body.books_id),
+      user_id: decodeIdUser,
     };
 
     prisma.rating
@@ -72,12 +66,6 @@ module.exports = {
         by: ["id_books"],
         where: {
           id_books: parseInt(id),
-        },
-        count: {
-          id_books: true,
-        },
-        sum: {
-          rating: true,
         },
         avg: {
           rating: true,

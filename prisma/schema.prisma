@@ -9,22 +9,21 @@ datasource db {
 }
 
 model books {
-  id_books    Int          @id @default(autoincrement())
-  title       String?
-  publisher   String?
-  author      String?
-  ISBN        String?
-  pages       Int?
-  description String?
-  cover__book String?      @map("cover_ book")
-  id_category Int?
-  id_user     Int?
-  id_rate     Int?
-  category    category?    @relation(fields: [id_category], references: [id_category])
-  user        user?        @relation(fields: [id_user], references: [id_user])
-  borrow      borrow[]
-  discussion  discussion[]
-  rating      rating[]
+  id_books                      Int          @id @default(autoincrement())
+  title                         String?
+  publisher                     String?
+  author                        String?
+  ISBN                          String?
+  pages                         Int?
+  description                   String?
+  cover__book                   String?      @map("cover_ book")
+  id_category                   Int?
+  id_user                       Int?
+  category                      category?    @relation(fields: [id_category], references: [id_category])
+  user                          user?        @relation(fields: [id_user], references: [id_user])
+  borrow                        borrow[]
+  discussion                    discussion[]
+  rating_booksTorating_books_id rating[]     @relation("booksTorating_books_id")
 }
 
 model borrow {
@@ -68,11 +67,14 @@ model user {
   books      books[]
   borrow     borrow[]
   discussion discussion[]
+  rating     rating[]
 }
 
 model rating {
-  id_rating Int    @id @default(autoincrement())
-  rating    Float?
-  id_books  Int?
-  books     books? @relation(fields: [id_books], references: [id_books])
+  id_rating                    Int    @id @default(autoincrement())
+  rating                       Float?
+  books_id                     Int?
+  user_id                      Int?
+  books_booksTorating_books_id books? @relation("booksTorating_books_id", fields: [books_id], references: [id_books])
+  user                         user?  @relation(fields: [user_id], references: [id_user])
 }
