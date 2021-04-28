@@ -206,6 +206,10 @@ module.exports = {
       // })
 
       .then((data) => {
+        for (i = 0; i < data.length; i++) {
+          delete data[i].books_id;
+        }
+
         res.status(200).send({
           message: "Success get all books",
           status: 200,
