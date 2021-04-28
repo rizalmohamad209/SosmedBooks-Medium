@@ -16,7 +16,7 @@ model books {
   ISBN                          String?
   pages                         Int?
   description                   String?
-  cover__book                   String?      @map("cover_ book")
+  cover_book                    String?
   id_category                   Int?
   id_user                       Int?
   category                      category?    @relation(fields: [id_category], references: [id_category])

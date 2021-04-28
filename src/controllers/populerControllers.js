@@ -5,7 +5,7 @@ module.exports = {
   getPopuler: (req, res) => {
     prisma
       .$queryRaw(
-        "SELECT books_id, AVG(rating) as rating FROM rating GROUP BY books_id ORDER BY rating DESC"
+        "SELECT title,author,cover_book, AVG(rating) as rating FROM rating INNER JOIN books ON rating.books_id=books.id_books GROUP BY title,author,cover_book ORDER BY rating DESC"
       )
       .then((data) => {
         res.status(200).send({
