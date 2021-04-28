@@ -87,7 +87,7 @@ module.exports = {
       // cover__book: req.file.path,
       pages: parseInt(body.pages),
       id_category: parseInt(body.id_category),
-      cover__book: req.file.path,
+      cover_book: req.file.path,
       id_user: deCoded_id_user,
     };
     console.log("====================================");
