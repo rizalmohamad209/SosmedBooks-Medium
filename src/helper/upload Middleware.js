@@ -23,7 +23,7 @@ const upload = multer({
 });
 
 const singleUpload = (req, res, next) => {
-  const uploadBooks = upload.single("cover__book");
+  const uploadBooks = upload.single("cover_book");
   uploadBooks(req, res, (err) => {
     if (err) {
       res.status(500).send({
